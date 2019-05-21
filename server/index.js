@@ -5,6 +5,7 @@ const {SERVER_PORT, SESSION_SECRET} = process.env
 const checkForSession = require('./middlewares/checkForSession')
 const swagController = require('./controllers/swagController')
 const authController = require('./controllers/authController')
+const cartController = require('./controllers/cartController')
 
 const app = express()
 
@@ -18,10 +19,15 @@ app.use(session({
     }
 }))
 
+app.post('/api/cart/:id', cartController.add)
+app.delete('/api/cart/:id', cartController.delete)
+app.post('/api/cart/checkout', cartController.checkout)
+
 app.post('/api/register', authController.register)
 app.post('/api/login', authController.login)
 app.post('/api/signout', authController.signout)
 app.get('/api/user', authController.getUser)
+
 app.get('/api/swag', swagController.read)
 
 
