@@ -33,7 +33,7 @@ app.get('/api/user', authController.getUser)
 
 app.get('/api/swag', swagController.read)
 
-
+app.use(express.static(`${'../build'}`))
 app.use(checkForSession)
 
 app.listen(SERVER_PORT, () => console.log(`Running on port ${SERVER_PORT}`))
